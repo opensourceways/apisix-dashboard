@@ -37,7 +37,7 @@ docker run -d --name dashboard \
 ```
 
 :::note
-Please replace `<CONFIG_FILE>` with the **absolute path** to your [configuration file](https://github.com/apache/apisix-dashboard/blob/master/api/conf/conf.yaml).
+Please replace `<CONFIG_FILE>` to your configure file path.
 :::
 
 ## RPM {#rpm}
@@ -48,7 +48,7 @@ Please replace `<CONFIG_FILE>` with the **absolute path** to your [configuration
 
 ```shell
 # 1. install RPM package
-sudo yum install -y https://github.com/apache/apisix-dashboard/releases/download/v3.0.0/apisix-dashboard-3.0.0-0.el7.x86_64.rpm
+sudo yum install -y https://github.com/apache/apisix-dashboard/releases/download/v3.0.1/apisix-dashboard-3.0.1-0.el7.x86_64.rpm
 ```
 
 ### Launch

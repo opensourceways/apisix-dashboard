@@ -141,32 +141,34 @@ type ListInput struct {
 // produces:
 // - application/json
 // parameters:
-// - name: page
-//   in: query
-//   description: page number
-//   required: false
-//   type: integer
-// - name: page_size
-//   in: query
-//   description: page size
-//   required: false
-//   type: integer
-// - name: sni
-//   in: query
-//   description: sni of SSL
-//   required: false
-//   type: string
+//   - name: page
+//     in: query
+//     description: page number
+//     required: false
+//     type: integer
+//   - name: page_size
+//     in: query
+//     description: page size
+//     required: false
+//     type: integer
+//   - name: sni
+//     in: query
+//     description: sni of SSL
+//     required: false
+//     type: string
+//
 // responses:
-//   '0':
-//     description: list response
-//     schema:
-//       type: array
-//       items:
-//         "$ref": "#/definitions/ssl"
-//   default:
-//     description: unexpected error
-//     schema:
-//       "$ref": "#/definitions/ApiError"
+//
+//	'0':
+//	  description: list response
+//	  schema:
+//	    type: array
+//	    items:
+//	      "$ref": "#/definitions/ssl"
+//	default:
+//	  description: unexpected error
+//	  schema:
+//	    "$ref": "#/definitions/ApiError"
 func (h *Handler) List(c droplet.Context) (interface{}, error) {
 	input := c.Input().(*ListInput)
 
@@ -385,6 +387,7 @@ func ParseCert(crt, key string) (*entity.SSL, error) {
 	ssl.Key = key
 	ssl.ValidityStart = x509Cert.NotBefore.Unix()
 	ssl.ValidityEnd = x509Cert.NotAfter.Unix()
+	// 加密
 	ssl.Cert = crt
 
 	return &ssl, nil
@@ -398,25 +401,27 @@ func ParseCert(crt, key string) (*entity.SSL, error) {
 // produces:
 // - application/json
 // parameters:
-// - name: cert
-//   in: body
-//   description: cert of SSL
-//   required: true
-//   type: string
-// - name: key
-//   in: body
-//   description: key of SSL
-//   required: true
-//   type: string
+//   - name: cert
+//     in: body
+//     description: cert of SSL
+//     required: true
+//     type: string
+//   - name: key
+//     in: body
+//     description: key of SSL
+//     required: true
+//     type: string
+//
 // responses:
-//   '0':
-//     description: SSL verify passed
-//     schema:
-//       "$ref": "#/definitions/ApiError"
-//   default:
-//     description: unexpected error
-//     schema:
-//       "$ref": "#/definitions/ApiError"
+//
+//	'0':
+//	  description: SSL verify passed
+//	  schema:
+//	    "$ref": "#/definitions/ApiError"
+//	default:
+//	  description: unexpected error
+//	  schema:
+//	    "$ref": "#/definitions/ApiError"
 func (h *Handler) Validate(c droplet.Context) (interface{}, error) {
 	input := c.Input().(*entity.SSL)
 	ssl, err := ParseCert(input.Cert, input.Key)
@@ -453,22 +458,24 @@ type ExistCheckInput struct {
 // produces:
 // - application/json
 // parameters:
-// - name: hosts
-//   in: body
-//   description: hosts of Route
-//   required: true
-//   type: array
+//   - name: hosts
+//     in: body
+//     description: hosts of Route
+//     required: true
+//     type: array
 //     items:
 //     type: string
+//
 // responses:
-//   '0':
-//     description: SSL exists
-//     schema:
-//       "$ref": "#/definitions/ApiError"
-//   default:
-//     description: unexpected error
-//     schema:
-//       "$ref": "#/definitions/ApiError"
+//
+//	'0':
+//	  description: SSL exists
+//	  schema:
+//	    "$ref": "#/definitions/ApiError"
+//	default:
+//	  description: unexpected error
+//	  schema:
+//	    "$ref": "#/definitions/ApiError"
 func (h *Handler) Exist(c droplet.Context) (interface{}, error) {
 	input := c.Input().(*ExistCheckInput)
 	if len(input.Hosts) == 0 {
